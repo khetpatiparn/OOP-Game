@@ -1,44 +1,43 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
-public class MovingBox extends JFrame{
+public class MovingBox extends JFrame {
     // Declare Attribute for Canvas
-    public static final int CANVAS_WIDTH = 1024;
+    public static final int CANVAS_WIDTH = 1366;
     public static final int CANVAS_HEIGHT = 768;
-    
-    // private Box box; // moving object
-    // Box Attribute
-    private int x;
-    private int y;
-    private int sqaure = 50;
-    private Color color = Color.BLUE;
+
+    // Declare Attribut for Wall
+    // Box
+    TheBox box;
+    // Wall
 
     // Custom Drawing canvas
     private DrawCanvas canvas;
 
     public MovingBox(){
-        // ContentPane
-        Container cp = getContentPane();
-
-        // Constructor Box
-        // box = new Box(100, 100,50);
-
         // Constructor Canvas
         canvas = new DrawCanvas();
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-        cp.add(canvas);
+        
+        // ContentPane
+        setContentPane(canvas);
+        
+        // Construct the Box
+        box = new TheBox();
 
-        // Hiddien Cursor
-        // BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-        // Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
-        // setCursor(blankCursor);
-
-        // addMouseMotionListener(new MouseAdapter() {
-        MouseListener listener = new MouseListener();
-        addMouseMotionListener(listener);
-        // });
+        // Register MousMotionListener 
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                box.x = e.getX() - 33;
+                box.y = e.getY() - 55;
+                repaint();
+        }
+        });
 
         // Frame and Layout Manager
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,28 +46,19 @@ public class MovingBox extends JFrame{
         setVisible(true);
     }
 
-    // inner class for Canvas
+    // inner class for Draw Canvas
     private class DrawCanvas extends JPanel{
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(color);
-            g.fillRect(x, y, sqaure, sqaure);
+            setBackground(Color.BLACK);
+            g.setColor(box.color);
+            g.fillRect(box.x, box.y, box.size, box.size);
         }
-    }
-
-    // inner class for MousemotionListener
-    private class MouseListener extends MouseMotionAdapter{
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            x = e.getX() - 30;
-            y = e.getY() - 50;
-            repaint();
-        }
-
     }
 
     public static void main(String[] args) {
         new MovingBox();
     }
+
 }
