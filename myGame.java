@@ -8,17 +8,18 @@ public class myGame extends JFrame{
     private final int FRAME_HEIGHT = 768;
 
     // Construct canvas/World 
-    protected DrawWorld canvas;
-    protected Color innerWorld = Color.BLACK; 
-    protected Color outerWorld = Color.GREEN; 
-    protected int topLeftx = 30;
-    protected int topLefty = 20;
+    private DrawWorld canvas;
+    private Color innerWorld = Color.BLACK; 
+    private Color outerWorld = Color.GREEN; 
+    private int topLeftx = 30;
+    private int topLefty = 20;
+
 
     // Construct The Box
-    protected int org_box_x = 100;
-    protected int org_box_y = 100;
-    protected int sizeBox = 50;
-    protected Color colorBox = Color.WHITE;
+    private int startX = 100;
+    private int startY = 100;
+    private int sizeBox = 50;
+    private Color colorBox = Color.WHITE;
 
     // Constructor to setup Worlds/Maps, Obstacles and The Box
     public myGame() {
@@ -31,12 +32,19 @@ public class myGame extends JFrame{
         // Register the Box and listener
         MotionTheBox listener = new MotionTheBox();
         addMouseMotionListener(listener);
+        // Register Collistion the Wall
+        
 
         // Frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Game");
         setSize(FRAME_WIDTH,FRAME_HEIGHT);
         setVisible(true);
+
+        // Check Values
+        System.out.println(getLocation());
+        System.out.println(canvas.getBounds());
+        System.out.println("Location Block is : " + startX + " , "+ startY);
     }
     // Inner Class for paint World
     private class DrawWorld extends JPanel{
@@ -55,18 +63,31 @@ public class myGame extends JFrame{
     // Method for paint Box on Canvas
     public void paintBox(Graphics g){
         g.setColor(colorBox); // color of box
-        g.fillRect(org_box_x, org_box_y, sizeBox, sizeBox); // drawing Sqaure
+        g.fillRect(startX, startY, sizeBox, sizeBox); // drawing Sqaure
     }
     // Inner Class for MousMotion The Box
     private class MotionTheBox extends MouseAdapter{
-
         @Override
         public void mouseMoved(MouseEvent e) {
-            org_box_x = e.getX() - 33;
-            org_box_y = e.getY() - 55;
+            startX = e.getX() - 33;
+            startY = e.getY() - 55;
             repaint();
         }
     }
+    // Inner Class ActionListener for Collistion the Wall
+    // private class CrashTheWall implements ActionListener{
+    //     // Declare coordinates
+    //     private int bottomRightx = canvas.getBounds().width - (2 * topLeftx);
+    //     private int bottomRighty = canvas.getBounds().height - (2 * topLefty);
+        
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         if (startX < topLeftx){
+    //             startX = topLeftx;
+    //         }
+    //     }
+
+    // }
 
     // Main Method
     public static void main(String[] args) {
