@@ -13,7 +13,7 @@ public class Map extends JFrame{
     // Declare Map
     DrawMap map;
     // Declare Box
-    theBox box;
+    TheBox box;
     private boolean isMouseInsideBox = false;
 
 
@@ -23,7 +23,7 @@ public class Map extends JFrame{
         setPreferredSize(dim);
         setContentPane(map);
         // Construct Box
-        box = new theBox(100 - barX, 100 - barY, 30);
+        box = new TheBox(100 - barX, 100 - barY, 30);
         // Construct Mouse Action
         MouseMoveAction mouseAction = new MouseMoveAction();
         addMouseMotionListener(mouseAction);
