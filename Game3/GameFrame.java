@@ -1,15 +1,24 @@
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
-    Map1 map1;
     MouseAction mouseAction;
+    
+    ChooseMapPage chooseMap;
+
+    Map1 map1;
+
 
     
     public GameFrame(){
+        // Construct Panels
+        chooseMap = new ChooseMapPage();
         // Put the map
         map1 = new Map1();
-        setContentPane(map1);
+
+        // ContentPane
+        setContentPane(chooseMap);
         
+        // Resgister Action and Listener
         mouseAction = new MouseAction(map1);
         map1.addMouseMotionListener(mouseAction);
         
