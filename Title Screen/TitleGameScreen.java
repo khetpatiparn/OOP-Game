@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
 public class TitleGameScreen extends JPanel{
     // Window Game Size
@@ -14,14 +13,18 @@ public class TitleGameScreen extends JPanel{
 
     // About Font
     Font WatchOutFont ,SqaureFont, GameStartFont, CreditsFont, ExitFont;
+    
     // Color
     Color tomato = new Color(255, 87, 87);
     Color offWhite = new Color(250, 249, 246);
     Color black = new Color(25, 28, 32);
+    
     // Label
     JLabel title_p1, title_p2;
+    
     // Button
     JLabel GameStart, Exit, Credits;
+    
     // Arrow Btn
     Polygon triangleLeft, triangleRight;
     int pointX_triangleLeft = 490;
@@ -35,31 +38,29 @@ public class TitleGameScreen extends JPanel{
     int[] xRight = {pointX_triangleRight, pointX_triangleRight, pointX_triangleRight + sizeTriangleBox};
     int[] yRight = {pointY_triangle, sizeTriangleBox + pointY_triangle, pointY_triangle + sizeTriangleBox / 2};
     
-
     // Footer backgound
     Rectangle floor = new Rectangle(0, 600, FRAME_WIDTH + 50, 200);
     Rectangle Box = new Rectangle(1000, 555, 70, 70);
-    // Constructor
+    
+    // Constructor to setup Component and Event handler
     public TitleGameScreen(){
         setPreferredSize(FRAME_SIZE); // set Size of Title Game Screen
         setLayout(null); // use absolute layout
         setBackground(offWhite);
-        //event handler
-        // addMouseMotionListener(new Mouse());
 
         // Watch Out Screen Label
         title_p1 = new JLabel();
         title_p1.setText("Watch Out,");
         title_p1.setBounds(310, 258, 454, 104);
         title_p1.setForeground(black);
-        WatchOutFont = usingFontsBold(WatchOutFont, 65f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        WatchOutFont = usingFontsBold(WatchOutFont, 65f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
         title_p1.setFont(WatchOutFont);
         add(title_p1);
         // SQUARE Screen Label
         title_p2 = new JLabel();
         title_p2.setText("SQUARE!!");
         title_p2.setBounds(708, 237, 405, 128);
-        SqaureFont = usingFontsBold(SqaureFont, 90f, "font/Oswald/static/Oswald-Medium.ttf");
+        SqaureFont = usingFontsBold(SqaureFont, 90f, "font/Oswald/Oswald-Medium.ttf");
         title_p2.setFont(SqaureFont);
         title_p2.setForeground(tomato);
         add(title_p2);
@@ -72,7 +73,7 @@ public class TitleGameScreen extends JPanel{
         GameStart.setOpaque(false); // show bg color 
         GameStart.setBackground(Color.RED);
         GameStart.setBounds(590 , 430, 155, 45);
-        GameStartFont = usingFontsBold(GameStartFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        GameStartFont = usingFontsBold(GameStartFont, 25f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
         GameStart.setForeground(black);
         GameStart.setFont(GameStartFont);
         add(GameStart);
@@ -82,7 +83,7 @@ public class TitleGameScreen extends JPanel{
         Exit.setOpaque(false); // show bg color 
         Exit.setBackground(Color.RED);
         Exit.setBounds(640 , 430, 60, 45);
-        ExitFont = usingFontsBold(ExitFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        ExitFont = usingFontsBold(ExitFont, 25f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
         Exit.setForeground(black);
         Exit.setFont(ExitFont);
         // Button Credits (use Label)
@@ -95,38 +96,11 @@ public class TitleGameScreen extends JPanel{
         Credits.setForeground(black);
         Credits.setFont(CreditsFont);
 
-        addMouseListener(new MouseInputAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (triangleLeft.contains(e.getPoint()) || triangleRight.contains(e.getPoint())){
-                    System.out.println("is in Triangle");
-                    if (GameStart.isShowing()){
-                        remove(GameStart);
-                        add(Credits);
-                        validate();
-                        repaint();
-                        System.out.println("EXit's showing");
-                    }else if (Credits.isShowing()){
-                        remove(Credits);
-                        add(Exit);
-                        validate();
-                        repaint();
-                    }else if (Exit.isShowing()){
-                        remove(Exit);
-                        add(GameStart);
-                        validate();
-                        repaint();
-                        System.out.println("Gamestart's showing");
-                    }
-                }
-            }
-        });
-        // Arrow Action Event
-        // ArrowAction arrowAction = new ArrowAction();
-        // addMouseListener(arrowAction);
-
+        // Event-Handler Section
+        addMouseListener(new ArrowAction()); // click arrow to change label
+        addMouseMotionListener(new Mouse());
     }
+    // Main PaintComponents Method
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -136,6 +110,7 @@ public class TitleGameScreen extends JPanel{
         paintFloor(g2d);
         paintBox(g2d);
     }
+    
     // Using Fonts Method Section
     public Font usingFonts(Font fontName,  float sizeFont, String fontFilePath_ttf){
         try {
@@ -145,7 +120,7 @@ public class TitleGameScreen extends JPanel{
             return fontName;
         } catch (IOException|FontFormatException e){
             // Handle Exception
-            System.out.println("Font Problems");
+            System.out.println("Font Problems Please Check");
             return null;
         }
     }
@@ -157,7 +132,7 @@ public class TitleGameScreen extends JPanel{
             return fontName;
         } catch (IOException|FontFormatException e){
             // Handle Exception
-            System.out.println("Font Problems");
+            System.out.println("Font Problems Please Check");
             return null;
         }
     }
@@ -184,6 +159,7 @@ public class TitleGameScreen extends JPanel{
         g2d.fill(tfShapeBox);
     }
     
+    // Main Test Section
     public static void main(String[] args) {
         JFrame frame = new JFrame("Title Game Screen");
         frame.setContentPane(new TitleGameScreen());
@@ -193,6 +169,7 @@ public class TitleGameScreen extends JPanel{
         frame.setVisible(true);
     }
 
+    // Inner Class for Event Handler Section
     private class Mouse extends MouseAdapter{
         @Override
         public void mouseMoved(MouseEvent e) {
@@ -200,34 +177,32 @@ public class TitleGameScreen extends JPanel{
         System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
     }
-
-
-    // private class ArrowAction extends MouseAdapter{
-    //     private boolean isGameStart = true; // Flag to track the state
-    //     @Override
-    //     public void mouseClicked(MouseEvent e) {
-    //         super.mouseClicked(e);
-    //         if (triangleLeft.contains(e.getPoint())) {
-    //             // Toggle the state
-    //             isGameStart = !isGameStart;
-    
-    //             // Change the label based on the state
-    //             if (isGameStart) {
-    //                 GameStart.setText("Game Start");
-    //             } else {
-    //                 GameStart.setText("Exit");
-    //             }
-    //         } else if (triangleRight.contains(e.getPoint())) {
-    //             // Toggle the state
-    //             isGameStart = !isGameStart;
-    
-    //             // Change the label based on the state
-    //             if (isGameStart) {
-    //                 GameStart.setText("Game Start");
-    //             } else {
-    //                 GameStart.setText("Exit");
-    //             }
-    //         }
-    //     }
-    // }
+    private class ArrowAction extends MouseAdapter{
+        @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (triangleLeft.contains(e.getPoint()) || triangleRight.contains(e.getPoint())){
+                    System.out.println("is in Triangle");
+                    if (GameStart.isShowing()){
+                        remove(GameStart);
+                        add(Credits);
+                        validate();
+                        repaint();
+                        System.out.println("Credits's showing");
+                    }else if (Credits.isShowing()){
+                        remove(Credits);
+                        add(Exit);
+                        validate();
+                        repaint();
+                        System.out.println("Exit's showing");
+                    }else if (Exit.isShowing()){
+                        remove(Exit);
+                        add(GameStart);
+                        validate();
+                        repaint();
+                        System.out.println("Gamestart's showing");
+                    }
+                }
+            }
+    }
 }
