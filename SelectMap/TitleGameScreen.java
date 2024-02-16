@@ -92,7 +92,7 @@ public class TitleGameScreen extends JPanel{
         Credits.setOpaque(false); // show bg color 
         Credits.setBackground(Color.RED);
         Credits.setBounds(620 , 430, 100, 45);
-        CreditsFont = usingFontsBold(CreditsFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        CreditsFont = usingFontsBold(CreditsFont, 25f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
         Credits.setForeground(black);
         Credits.setFont(CreditsFont);
 

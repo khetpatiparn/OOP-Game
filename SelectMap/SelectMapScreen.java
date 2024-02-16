@@ -12,28 +12,28 @@ public class SelectMapScreen extends JPanel{
     private final Dimension FRAME_SIZE = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
     // About Font
-    Font selectMapFont, mapBoxFont;
+    Font selectMapFont, mapBoxFont, BackBtnFont, TextFont;
     
     // Color
     Color tomato = new Color(255, 87, 87);
     Color offWhite = new Color(250, 249, 246);
     Color black = new Color(25, 28, 32);
-    Color []mColor = {new Color(255, 104, 104), // 0
-                    new Color(203,108,230), // 1
-                    new Color(255,222,89), // 2
-                    new Color(56,182,255), // 3
-                    new Color(126,217,87), // 4
-                    new Color(255,189,89), // 5
-                    new Color(139,80,44), // 6
-                    new Color(0,151,178), // 7
-                    new Color(0,191,99), // 8
-                    new Color(255,145,77), // 9
-                    new Color(0,74,173), // 10
-                    new Color(166,166,166), //11
+    Color []mColor = {new Color(255, 104, 104,255), // 0
+                    new Color(203,108,230,255), // 1
+                    new Color(255,222,89,255), // 2
+                    new Color(56,182,255,255), // 3
+                    new Color(126,217,87,255), // 4
+                    new Color(255,189,89,255), // 5
+                    new Color(139,80,44,255), // 6
+                    new Color(0,151,178,255), // 7
+                    new Color(0,191,99,255), // 8
+                    new Color(255,145,77,255), // 9
+                    new Color(0,74,173,255), // 10
+                    new Color(166,166,166,255), //11
     };
     
     // Label
-    JLabel selectMap;
+    JLabel selectMap, BackBtn, aText;
 
     // Button but Label
     JLabel[] map = new JLabel[12];
@@ -87,9 +87,22 @@ public class SelectMapScreen extends JPanel{
             add(map[i]);
         }
 
-        
+        // BackButton (But use Label)
+        BackBtn = new JLabel();
+        BackBtn.setText("BACK");
+        BackBtn.setBounds(606, 640, 150, 50);
+        BackBtn.setOpaque(true);
+        BackBtn.setBackground(new Color(166, 166, 166));
+        BackBtn.setForeground(black);
+        BackBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        BackBtn.setVerticalAlignment(SwingConstants.CENTER);
+        BackBtnFont = usingFontsBold(BackBtnFont, 25f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
+        BackBtn.setFont(BackBtnFont);
+        add(BackBtn);
+
         // Event-Hander
         addMouseMotionListener(new Mouse());
+        addMouseMotionListener(new OpacityMouseAction());
     }
     // Main PaintComponents Method
     @Override
@@ -97,6 +110,19 @@ public class SelectMapScreen extends JPanel{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
+        g2d.setFont(BackBtnFont);
+        // This is tutorial text
+        AffineTransform originalTransform = g2d.getTransform(); 
+        AffineTransform tfText = new AffineTransform();
+        tfText.rotate(Math.toRadians(-20)); 
+        g2d.setTransform(tfText);
+        TextFont = usingFontsBold(TextFont, 35f, "font/Shantell_Sans/ShantellSans-Regular.ttf");
+        g2d.setFont(TextFont);
+        g2d.setColor(new Color(166, 166, 166));
+        g2d.drawString("Map 0's the Tutorial", -30, 220); 
+        g2d.setTransform(originalTransform);
+        
+
     }
     
     // Using Fonts Method Section
@@ -124,9 +150,11 @@ public class SelectMapScreen extends JPanel{
             return null;
         }
     }
-    
     // Paint Method Section
-
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+    }
     // Inner Class for Event Handler Section
     private class Mouse extends MouseAdapter{
         @Override
@@ -147,6 +175,24 @@ public class SelectMapScreen extends JPanel{
     }
 
     private class OpacityMouseAction extends MouseMotionAdapter{
-        
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            super.mouseMoved(e);
+            // Hold over on Map
+            for (int i = 0; i < map.length; i++) {
+                if (map[i].getBounds().contains(e.getPoint())) {
+                    map[i].setBackground(mColor[i].darker());
+                } else {
+                    map[i].setBackground(mColor[i]);
+                }
+            }
+
+            // Hold over on Back Label
+            if (BackBtn.getBounds().contains(e.getPoint())){
+                BackBtn.setBackground(new Color(166,166,166).darker());
+            }else{
+                BackBtn.setBackground(new Color(166,166,166));
+            }
+        }
     }
 }
