@@ -11,7 +11,7 @@ public class Goal{
     }
 
     public Goal(int goalX, int goalY, int size){
-        goalChar = new Rectangle(goalX, goalY, sizeGoal, sizeGoal);
+        goalChar = new Rectangle(goalX, goalY, size, size);
         this.sizeGoal = size;
     }
 

@@ -10,7 +10,7 @@ public class Box {
         boxChar = new Rectangle(startX, startY, sizeBox, sizeBox);
     }
     public Box(int startX, int startY, int size){
-        boxChar = new Rectangle(startX, startY, sizeBox, sizeBox);
+        boxChar = new Rectangle(startX, startY, size, size);
         this.sizeBox = size;
     }
 

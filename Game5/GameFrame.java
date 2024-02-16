@@ -1,36 +1,42 @@
+import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class GameFrame extends JFrame {
+    // Panels Map/ Screen
+    TitleGameScreen titleGameScreen;
+
+    // Event mouose Action
     MouseAction mouseAction;
-    SelectMap selectMap;
-    Map1 map1;
-    OutlineforTest test;
 
+    Container cp;
 
-    
     public GameFrame(){
-        // Construct Panels
-        selectMap = new SelectMap();
-        // Put the map
-        map1 = new Map1();
-        test = new OutlineforTest();
-        // ContentPane
-        setContentPane(selectMap);
-        // setContentPane(test);
-        
-        // Resgister Action and Listener
-        mouseAction = new MouseAction(map1);
-        map1.addMouseMotionListener(mouseAction);
+        // Construct Contentpane
+        cp = getContentPane();
+        // Add the Screen or Maps
+        titleGameScreen = new TitleGameScreen();
+        cp.add(titleGameScreen);
+        cp.addMouseListener(new StartGame());
         
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("The Box Game OOP");
-        setLocation(250,100);
+        setLocation(50,50);
         pack();
         setResizable(false);
         setVisible(true);
     }
     public static void main(String[] args) {
         new GameFrame();
+    }
+    private class StartGame extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            if (titleGameScreen.GameStart.getBounds().contains(e.getPoint())){
+                System.out.println("Clicked Game Start");
+            }
+        }
     }
 }
