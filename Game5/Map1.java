@@ -45,7 +45,7 @@ public class Map1 extends JPanel{
         ActionListener updateTask = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // o1Moving.moveRight2Left(1300, 30, 20);
+                o1Moving.moveRight2Left(1300, 30, 20);
                 repaint();
             }
         };
