@@ -4,6 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 
 public class TitleGameScreen extends JPanel{
     // Window Game Size
@@ -12,23 +13,17 @@ public class TitleGameScreen extends JPanel{
     private final Dimension FRAME_SIZE = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
     // About Font
-    Font font_p1; // font name1
-    Font font_p2; // font name2
-    Font fontGameStartBtn;
+    Font WatchOutFont ,SqaureFont, GameStartFont, CreditsFont, ExitFont;
     // Color
     Color tomato = new Color(255, 87, 87);
     Color offWhite = new Color(250, 249, 246);
     Color black = new Color(25, 28, 32);
     // Label
-    JLabel title_p1;
-    JLabel title_p2;
+    JLabel title_p1, title_p2;
     // Button
-    JLabel GameStart;
-    JButton Exit;
-    JButton Credits;
+    JLabel GameStart, Exit, Credits;
     // Arrow Btn
-    Polygon triangleLeft;
-    Polygon triangleRight;
+    Polygon triangleLeft, triangleRight;
     int pointX_triangleLeft = 490;
     int pointX_triangleRight = 800;
     int pointY_triangle = 435; 
@@ -42,32 +37,30 @@ public class TitleGameScreen extends JPanel{
     
 
     // Footer backgound
-    int direction = 1;
     Rectangle floor = new Rectangle(0, 600, FRAME_WIDTH + 50, 200);
-    Rectangle Box = new Rectangle(1000, 575, 70, 70);
+    Rectangle Box = new Rectangle(1000, 555, 70, 70);
     // Constructor
     public TitleGameScreen(){
         setPreferredSize(FRAME_SIZE); // set Size of Title Game Screen
         setLayout(null); // use absolute layout
-        // setBackground(Color.WHITE); // set Background of Panel Title Game Screen
         setBackground(offWhite);
         //event handler
-        addMouseMotionListener(new Mouse());
+        // addMouseMotionListener(new Mouse());
 
         // Watch Out Screen Label
         title_p1 = new JLabel();
         title_p1.setText("Watch Out,");
         title_p1.setBounds(310, 258, 454, 104);
         title_p1.setForeground(black);
-        font_p1 = usingFontsBold(font_p1, 65f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
-        title_p1.setFont(font_p1);
+        WatchOutFont = usingFontsBold(WatchOutFont, 65f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        title_p1.setFont(WatchOutFont);
         add(title_p1);
         // SQUARE Screen Label
         title_p2 = new JLabel();
         title_p2.setText("SQUARE!!");
         title_p2.setBounds(708, 237, 405, 128);
-        font_p2 = usingFontsBold(font_p2, 90f, "font/Oswald/static/Oswald-Medium.ttf");
-        title_p2.setFont(font_p2);
+        SqaureFont = usingFontsBold(SqaureFont, 90f, "font/Oswald/static/Oswald-Medium.ttf");
+        title_p2.setFont(SqaureFont);
         title_p2.setForeground(tomato);
         add(title_p2);
         // Button Arrow Left and Right
@@ -79,21 +72,59 @@ public class TitleGameScreen extends JPanel{
         GameStart.setOpaque(false); // show bg color 
         GameStart.setBackground(Color.RED);
         GameStart.setBounds(590 , 430, 155, 45);
-        fontGameStartBtn = usingFontsBold(fontGameStartBtn, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        GameStartFont = usingFontsBold(GameStartFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
         GameStart.setForeground(black);
-        GameStart.setFont(fontGameStartBtn);
+        GameStart.setFont(GameStartFont);
         add(GameStart);
-        // ActionListener
-        ActionListener updateTask = new ActionListener() {
+        // Button Exit (use Label)
+        Exit = new JLabel();
+        Exit.setText("Exit");
+        Exit.setOpaque(false); // show bg color 
+        Exit.setBackground(Color.RED);
+        Exit.setBounds(640 , 430, 60, 45);
+        ExitFont = usingFontsBold(ExitFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        Exit.setForeground(black);
+        Exit.setFont(ExitFont);
+        // Button Credits (use Label)
+        Credits = new JLabel();
+        Credits.setText("Credits");
+        Credits.setOpaque(false); // show bg color 
+        Credits.setBackground(Color.RED);
+        Credits.setBounds(620 , 430, 100, 45);
+        CreditsFont = usingFontsBold(CreditsFont, 25f, "font/Shantell_Sans/static/ShantellSans-Regular.ttf");
+        Credits.setForeground(black);
+        Credits.setFont(CreditsFont);
+
+        addMouseListener(new MouseInputAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if(Box.x <= 1000){
-                    Box.x -= Math.cos(Math.toRadians(5)) * 5;
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (triangleLeft.contains(e.getPoint()) || triangleRight.contains(e.getPoint())){
+                    System.out.println("is in Triangle");
+                    if (GameStart.isShowing()){
+                        remove(GameStart);
+                        add(Credits);
+                        validate();
+                        repaint();
+                        System.out.println("EXit's showing");
+                    }else if (Credits.isShowing()){
+                        remove(Credits);
+                        add(Exit);
+                        validate();
+                        repaint();
+                    }else if (Exit.isShowing()){
+                        remove(Exit);
+                        add(GameStart);
+                        validate();
+                        repaint();
+                        System.out.println("Gamestart's showing");
+                    }
                 }
-                repaint();
             }
-        };
-        new Timer(1, updateTask).start();
+        });
+        // Arrow Action Event
+        // ArrowAction arrowAction = new ArrowAction();
+        // addMouseListener(arrowAction);
 
     }
     @Override
@@ -136,7 +167,7 @@ public class TitleGameScreen extends JPanel{
         g2d.setColor(black);
         AffineTransform tfFloor = new AffineTransform();
         tfFloor.translate(-10, 42);
-        // tfFloor.rotate(Math.toRadians(177), floor.getCenterX(), floor.getCenterY());
+        tfFloor.rotate(Math.toRadians(177), floor.getCenterX(), floor.getCenterY());
         Shape tfShapeFloor = tfFloor.createTransformedShape(floor);
         g2d.fill(tfShapeFloor);
     }
@@ -148,7 +179,7 @@ public class TitleGameScreen extends JPanel{
     public void paintBox(Graphics2D g2d){
         g2d.setColor(black);
         AffineTransform tfBox = new AffineTransform();
-        tfBox.rotate(Math.toRadians(180), Box.getCenterX(), Box.getCenterY());
+        tfBox.rotate(Math.toRadians(177), Box.getCenterX(), Box.getCenterY());
         Shape tfShapeBox = tfBox.createTransformedShape(Box);
         g2d.fill(tfShapeBox);
     }
@@ -169,4 +200,34 @@ public class TitleGameScreen extends JPanel{
         System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
     }
+
+
+    // private class ArrowAction extends MouseAdapter{
+    //     private boolean isGameStart = true; // Flag to track the state
+    //     @Override
+    //     public void mouseClicked(MouseEvent e) {
+    //         super.mouseClicked(e);
+    //         if (triangleLeft.contains(e.getPoint())) {
+    //             // Toggle the state
+    //             isGameStart = !isGameStart;
+    
+    //             // Change the label based on the state
+    //             if (isGameStart) {
+    //                 GameStart.setText("Game Start");
+    //             } else {
+    //                 GameStart.setText("Exit");
+    //             }
+    //         } else if (triangleRight.contains(e.getPoint())) {
+    //             // Toggle the state
+    //             isGameStart = !isGameStart;
+    
+    //             // Change the label based on the state
+    //             if (isGameStart) {
+    //                 GameStart.setText("Game Start");
+    //             } else {
+    //                 GameStart.setText("Exit");
+    //             }
+    //         }
+    //     }
+    // }
 }
