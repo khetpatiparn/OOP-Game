@@ -1,11 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 
-public class Map0 extends JPanel{
+public class Map1 extends JPanel{
     // Window Game Size
     private final int FRAME_WIDTH = 1366;
     private final int FRAME_HEIGHT = 768;
@@ -20,7 +19,7 @@ public class Map0 extends JPanel{
     protected Rectangle wallRight = new Rectangle(FRAME_WIDTH - WALL_WIDTH, 0, WALL_WIDTH, FRAME_HEIGHT);
 
     // Fonts
-    private Font mapNumberFont, TextFont;
+    private Font mapNumberFont;
 
     // Color
     private Color offWhite = new Color(250, 249, 246);
@@ -30,34 +29,41 @@ public class Map0 extends JPanel{
     protected JLabel homeBtn;
 
     // Start positions Setup
-    protected final int START_X = 160;
-    protected final int START_Y = 170;
+    protected final int START_X = 175;
+    protected final int START_Y = 160;
 
     // Goal positions Setup
-    protected final int GOAL_X = 100;
-    protected final int GOAL_Y = 464;
+    protected final int GOAL_X = 1031;
+    protected final int GOAL_Y = 90;
 
     // Construct Box
-    private Color colorBox = new Color(255, 87, 87);
-    protected Box player = new Box(START_X, START_Y, 60 , colorBox);
+    private Color colorBox = new Color(203,108,230,255);
+    protected Box player = new Box(START_X, START_Y, 40 , colorBox);
 
     // Construct Goal
-    protected Goal goal = new Goal(GOAL_X, GOAL_Y,50,300, colorBox.darker().darker().darker().darker());
+    protected Goal goal = new Goal(GOAL_X, GOAL_Y,250,50, colorBox.darker().darker().darker().darker());
 
     // Construct Obstacles Here!! ma friends
-    protected Rectangle o1 = new Rectangle(103, 289, 800, 190);
-    
+    private Rectangle o1 = new Rectangle(280, 90, 758, 220);
+    private Rectangle o2 = new Rectangle(580, 310, 190, 190);
     // Construct obstacles Moving
+    private ObjectMoving o1Move = new ObjectMoving(280, 330, 70, 160);
+    private ObjectMoving o2Move = new ObjectMoving(380, 330, 70, 160);
+    private ObjectMoving o3Move = new ObjectMoving(480, 330, 70, 160);
+    private ObjectMoving o4Move = new ObjectMoving(790, 500, 70, 160);
+    private ObjectMoving o5Move = new ObjectMoving(880, 500, 70, 160);
+    private ObjectMoving o6Move = new ObjectMoving(970, 500, 70, 160);
+
     
     // Construct obstables Rotation
 
-    public Map0(){
+    public Map1(){
         setLayout(null);
         setPreferredSize(FRAME_SIZE);
 
         // Label Components
         mapNumber = new JLabel();
-        mapNumber.setText("MAP 0");
+        mapNumber.setText("MAP 1");
         mapNumber.setBounds(1150, 24, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
@@ -85,6 +91,20 @@ public class Map0 extends JPanel{
         MouseAction mouseAction = new MouseAction();
         addMouseMotionListener(mouseAction);
         addMouseMotionListener(new HomeBtnOpacity());
+
+        ActionListener updateTask = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                o1Move.moveDown2Up(490, 320, 3);
+                o2Move.moveDown2Up(490, 320, 3);
+                o3Move.moveDown2Up(490, 320, 3);
+                o4Move.moveUp2Down(320, 490, 4);
+                o5Move.moveUp2Down(320, 490, 4);
+                o6Move.moveUp2Down(320, 490, 4);
+                repaint();
+            }
+        };
+        new Timer(1, updateTask).start();
     }
 
     @Override
@@ -92,13 +112,16 @@ public class Map0 extends JPanel{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
-        paintText1(g2d);
-        paintText2(g2d);
-        paintText3(g2d);
         player.paintBox(g);
         goal.paintGoalCustomSize(g);
         paintTheWall(g);
         paintObstacles(g);
+        o1Move.paintMovingObject(g);
+        o2Move.paintMovingObject(g);
+        o3Move.paintMovingObject(g);
+        o4Move.paintMovingObject(g);
+        o5Move.paintMovingObject(g);
+        o6Move.paintMovingObject(g);
     }
 
     private void paintTheWall(Graphics g){
@@ -112,41 +135,7 @@ public class Map0 extends JPanel{
     private void paintObstacles(Graphics g){
         g.setColor(colorBox);
         g.fillRect(o1.x, o1.y, o1.width, o1.height);
-    }
-    private void paintText1(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("move your mouse over SQUARE!!", 250, 210); 
-        g2d.setTransform(originalTransform);
-    }
-
-    private void paintText2(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("Don't hit ANYTHING", 930, 370); 
-        g2d.setTransform(originalTransform);
-    }
-
-    private void paintText3(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("Get Goal", 190, 580); 
-        g2d.setTransform(originalTransform);
+        g.fillRect(o2.x, o2.y, o2.width, o2.height);
     }
     
     // Using Fonts Method Section
@@ -180,7 +169,7 @@ public class Map0 extends JPanel{
         public void mouseMoved(MouseEvent e) {
             super.mouseMoved(e);
             if (homeBtn.getBounds().contains(e.getPoint())){
-                System.out.println("Is in Home Button in Map 0");
+                System.out.println("Is in Home Button in Map 1");
                 homeBtn.setForeground(offWhite.darker().darker());
             }else{
                 homeBtn.setForeground(offWhite);
@@ -213,7 +202,7 @@ public class Map0 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
@@ -234,10 +223,18 @@ public class Map0 extends JPanel{
             ResetPlayer();
         }
         // Add Hit the Obstacles Here!! ma friends
-        if (player.boxChar.intersects(o1)){
+        if (player.boxChar.intersects(o1) || player.boxChar.intersects(o2)){
             // Reset State
             ResetPlayer();
         }
+        // Add hit the moveing's obstacles
+        if (player.boxChar.intersects(o1Move.object) || player.boxChar.intersects(o2Move.object)
+            || player.boxChar.intersects(o3Move.object) || player.boxChar.intersects(o4Move.object)
+            || player.boxChar.intersects(o5Move.object) || player.boxChar.intersects(o6Move.object)){
+            // Reset State
+            ResetPlayer();
+        }
+        // Add hit the rotation's obstacles
         
     }
     

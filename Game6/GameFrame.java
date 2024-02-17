@@ -7,6 +7,7 @@ public class GameFrame extends JFrame {
     TitleGameScreen titleGameScreen;
     SelectMapScreen selectMapScreen;
     Map0 map0;
+    Map1 map1;
 
     Container cp;
 
@@ -17,15 +18,18 @@ public class GameFrame extends JFrame {
         titleGameScreen = new TitleGameScreen();
         selectMapScreen = new SelectMapScreen();
         map0 = new Map0();
+        map1 = new Map1();
 
-        cp.add(titleGameScreen);
+        // cp.add(titleGameScreen);
         // cp.add(selectMapScreen);
         // cp.add(map0);
+        cp.add(map1);
 
         // Event-Handler Control Map / Screen
         titleGameScreen.addMouseListener(new NavigationTitleScreen()); // Event TitleScreen
         selectMapScreen.addMouseListener(new NavigationSelectMapScreen()); // EVent SelectMapScreen
         map0.addMouseListener(new NavBackMap()); // Event Map0
+        map1.addMouseListener(new NavBackMap());
         
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,10 +77,10 @@ public class GameFrame extends JFrame {
             }else if (selectMapScreen.map[1].getBounds().contains(e.getPoint())){
                 System.out.println("==> Map 1 Button's clicked");
                 System.out.println("Map 1 's showing");
-                // cp.remove(selectMapScreen);
-                // cp.add(map1);
-                // cp.revalidate();
-                // cp.repaint();
+                cp.remove(selectMapScreen);
+                cp.add(map1);
+                cp.revalidate();
+                cp.repaint();
 
             }else if (selectMapScreen.map[2].getBounds().contains(e.getPoint())){
                 System.out.println("==> Map 2 Button's clicked");
@@ -178,9 +182,17 @@ public class GameFrame extends JFrame {
     private class NavBackMap extends MouseAdapter{
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (map0.homeBtn.getBounds().contains(e.getPoint())){
+            if (map0.homeBtn.getBounds().contains(e.getPoint()) && map0.isShowing()){
                 System.out.println("==> Home Button's clicked");
                 cp.remove(map0);
+                cp.add(selectMapScreen);
+                cp.revalidate();
+                cp.repaint();
+                System.out.println("Back to Select Map Screen...");
+                System.out.println("-----------------------------");
+            }else if (map1.homeBtn.getBounds().contains(e.getPoint()) && map1.isShowing()){
+                System.out.println("==> Home Button's clicked");
+                cp.remove(map1);
                 cp.add(selectMapScreen);
                 cp.revalidate();
                 cp.repaint();
