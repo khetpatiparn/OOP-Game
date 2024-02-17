@@ -66,7 +66,7 @@ public class Map1 extends JPanel{
         // Label Components
         mapNumber = new JLabel();
         mapNumber.setText("MAP 1");
-        mapNumber.setBounds(1150, 24, 200, 50);
+        mapNumber.setBounds(600, 24, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
@@ -214,11 +214,11 @@ public class Map1 extends JPanel{
                 
                 // JOptionPane.showInternalMessageDialog(null,"You Win!!", "Congratulation",JOptionPane.PLAIN_MESSAGE);
                 // repaint();
-                changeMap(gameFrame.map1);
+                changeMap(gameFrame.emptyMap);
             }
         }
         private void changeMap(JPanel newMap){
-            gameFrame.cp.remove(gameFrame.map0);
+            gameFrame.cp.remove(gameFrame.map1);
             gameFrame.cp.add(newMap);
             gameFrame.cp.revalidate();
             gameFrame.cp.repaint();

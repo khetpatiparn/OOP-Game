@@ -9,6 +9,7 @@ public class GameFrame extends JFrame {
     Map0 map0;
     Map1 map1;
     EmptyMap emptyMap;
+
     Container cp;
 
     public GameFrame(){
@@ -19,20 +20,21 @@ public class GameFrame extends JFrame {
         selectMapScreen = new SelectMapScreen();
         map0 = new Map0(this);
         map1 = new Map1(this);
-        emptyMap = new EmptyMap(this);
+        emptyMap = new EmptyMap();
 
 
-        // cp.add(titleGameScreen);
+        cp.add(titleGameScreen);
         // cp.add(selectMapScreen);
         // cp.add(map0);
         // cp.add(map1);
-        cp.add(emptyMap);
+        // cp.add(emptyMap);
 
         // Event-Handler Control Map / Screen
         titleGameScreen.addMouseListener(new NavigationTitleScreen()); // Event TitleScreen
         selectMapScreen.addMouseListener(new NavigationSelectMapScreen()); // EVent SelectMapScreen
         map0.addMouseListener(new NavBackMap()); // Event Map0
-        map1.addMouseListener(new NavBackMap());
+        map1.addMouseListener(new NavBackMap()); // Event Map1
+        emptyMap.addMouseListener(new NavBackMap()); // Event EmptyMap
         
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,10 +165,10 @@ public class GameFrame extends JFrame {
             }else if (selectMapScreen.map[11].getBounds().contains(e.getPoint())){
                 System.out.println("==> Map 11 Button's clicked");
                 System.out.println("Map 11 's showing");
-                // cp.remove(selectMapScreen);
-                // cp.add(map11);
-                // cp.revalidate();
-                // cp.repaint();
+                cp.remove(selectMapScreen);
+                cp.add(emptyMap);
+                cp.revalidate();
+                cp.repaint();
                 
             // Back Button
             }else if (selectMapScreen.BackBtn.getBounds().contains(e.getPoint())){
@@ -201,11 +203,15 @@ public class GameFrame extends JFrame {
                 cp.repaint();
                 System.out.println("Back to Select Map Screen...");
                 System.out.println("-----------------------------");
+            }else if (emptyMap.homeBtn.getBounds().contains(e.getPoint()) && emptyMap.isShowing()){
+                System.out.println("==> Home Button's clicked");
+                cp.remove(emptyMap);
+                cp.add(selectMapScreen);
+                cp.revalidate();
+                cp.repaint();
+                System.out.println("Back to Select Map Screen...");
+                System.out.println("-----------------------------");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new GameFrame();
     }
 }

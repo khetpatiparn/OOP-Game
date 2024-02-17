@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class EmptyMap extends JPanel{
-    private GameFrame gameFrame;
     // Window Game Size
     private final int FRAME_WIDTH = 1366;
     private final int FRAME_HEIGHT = 768;
@@ -51,15 +50,14 @@ public class EmptyMap extends JPanel{
     
     // Construct obstables Rotation
 
-    public EmptyMap(GameFrame gameFrame){
-        this.gameFrame = gameFrame;
+    public EmptyMap(){
         setLayout(null);
         setPreferredSize(FRAME_SIZE);
 
         // Label Components
         mapNumber = new JLabel();
-        mapNumber.setText("MAP 5");
-        mapNumber.setBounds(1150, 24, 200, 50);
+        mapNumber.setText("EMPTY");
+        mapNumber.setBounds(600, 24, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
@@ -107,7 +105,7 @@ public class EmptyMap extends JPanel{
         goal.paintGoalCustomSize(g);
         paintTheWall(g);
         M1.paintMovingObject(g2d);
-        // paintObstacles(g);
+        paintObstacles(g);
     }
 
     private void paintTheWall(Graphics g){

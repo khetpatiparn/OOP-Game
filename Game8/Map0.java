@@ -60,7 +60,7 @@ public class Map0 extends JPanel{
         // Label Components
         mapNumber = new JLabel();
         mapNumber.setText("MAP 0");
-        mapNumber.setBounds(1150, 24, 200, 50);
+        mapNumber.setBounds(600, 24, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
