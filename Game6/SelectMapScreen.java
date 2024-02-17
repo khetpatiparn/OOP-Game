@@ -110,6 +110,7 @@ public class SelectMapScreen extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
         g2d.setFont(BackBtnFont);
+        
         // This is tutorial text
         AffineTransform originalTransform = g2d.getTransform(); 
         AffineTransform tfText = new AffineTransform();
@@ -121,7 +122,6 @@ public class SelectMapScreen extends JPanel{
         g2d.drawString("Map 0's the Tutorial", -30, 220); 
         g2d.setTransform(originalTransform);
         
-
     }
     
     // Using Fonts Method Section
@@ -149,11 +149,7 @@ public class SelectMapScreen extends JPanel{
             return null;
         }
     }
-    // Paint Method Section
-    @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
-    }
+
     // Inner Class for Event Handler Section
     private class Mouse extends MouseAdapter{
         @Override

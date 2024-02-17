@@ -104,7 +104,8 @@ public class TitleGameScreen extends JPanel{
 
         // Event-Handler Section
         addMouseListener(new ArrowAction()); // click arrow to change label
-        addMouseMotionListener(new Mouse());
+        addMouseMotionListener(new MousePositionCheck());
+        addMouseMotionListener(new HoverButton());
     }
     // Main PaintComponents Method
     @Override
@@ -166,7 +167,7 @@ public class TitleGameScreen extends JPanel{
     }
 
     // Inner Class for Event Handler Section
-    private class Mouse extends MouseAdapter{
+    private class MousePositionCheck extends MouseAdapter{
         @Override
         public void mouseMoved(MouseEvent e) {
         // Check mouse's position
@@ -200,5 +201,24 @@ public class TitleGameScreen extends JPanel{
                 }
             }
         }
+    }
+    private class HoverButton extends MouseAdapter{
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            super.mouseMoved(e);
+            if (GameStart.getBounds().contains(e.getPoint())){
+                // System.out.println("point at game start button");
+                GameStart.setForeground(black.brighter().brighter().brighter().brighter());
+                Credits.setForeground(black.brighter().brighter().brighter().brighter());
+                Exit.setForeground(black.brighter().brighter().brighter().brighter());
+            }else{
+                GameStart.setForeground(black);
+                Credits.setForeground(black);
+                Exit.setForeground(black);
+
+            }
+        }
+        
+        
     }
 }

@@ -8,9 +8,6 @@ public class GameFrame extends JFrame {
     SelectMapScreen selectMapScreen;
     Map0 map0;
 
-    // Action Mouse by map
-    MouseAction mouseAction;
-
     Container cp;
 
     public GameFrame(){
@@ -21,18 +18,15 @@ public class GameFrame extends JFrame {
         selectMapScreen = new SelectMapScreen();
         map0 = new Map0();
 
-        // cp.add(titleGameScreen);
+        cp.add(titleGameScreen);
         // cp.add(selectMapScreen);
-        cp.add(map0);
+        // cp.add(map0);
 
         // Event-Handler Control Map / Screen
         titleGameScreen.addMouseListener(new NavigationTitleScreen()); // Event TitleScreen
         selectMapScreen.addMouseListener(new NavigationSelectMapScreen()); // EVent SelectMapScreen
-        // map0.addMouseListener(new NavBackMap()); // Event Map0
+        map0.addMouseListener(new NavBackMap()); // Event Map0
         
-        // Event-Hander Control Box
-        cp.addMouseMotionListener(new MouseAction(map0));
-
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("The Box Game OOP");
@@ -184,7 +178,6 @@ public class GameFrame extends JFrame {
     private class NavBackMap extends MouseAdapter{
         @Override
         public void mouseClicked(MouseEvent e) {
-            super.mouseClicked(e);
             if (map0.homeBtn.getBounds().contains(e.getPoint())){
                 System.out.println("==> Home Button's clicked");
                 cp.remove(map0);
@@ -196,6 +189,7 @@ public class GameFrame extends JFrame {
             }
         }
     }
+
     public static void main(String[] args) {
         new GameFrame();
     }
