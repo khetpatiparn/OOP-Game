@@ -32,18 +32,26 @@ public class MouseAction extends MouseAdapter{
             isMouseInsideBox = true;
         }
         //Check mouse's position
-        // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+        System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
     }
 
     private void winGoal(){
             // Box Get Goal
-            int rightTopB = map0.player.boxChar.x + map0.player.sizeBox;
-            int rightTopG = map0.goal.goalChar.y + map0.goal.sizeGoal;
-            int leftBottomG = map0.goal.goalChar.x + map0.goal.sizeGoal;
-            int leftBottomB = map0.player.boxChar.y + map0.player.sizeBox;
+            // int rightTopB = map0.player.boxChar.x + map0.player.sizeBox;
+            // int rightTopG = map0.goal.goalChar.y + map0.goal.sizeGoal;
+            // int leftBottomG = map0.goal.goalChar.x + map0.goal.sizeGoal;
+            // int leftBottomB = map0.player.boxChar.y + map0.player.sizeBox;
     
-            if ((rightTopB >= map0.goal.goalChar.x) && (map0.player.boxChar.y <= rightTopG) 
-            && (map0.player.boxChar.x <= leftBottomG) && (leftBottomB >= map0.goal.goalChar.y)){
+            // if ((rightTopB >= map0.goal.goalChar.x) && (map0.player.boxChar.y <= rightTopG) 
+            // && (map0.player.boxChar.x <= leftBottomG) && (leftBottomB >= map0.goal.goalChar.y)){
+            //     System.out.println("Congratulations!!!");
+            //     ResetPlayer();
+                
+            //     JOptionPane.showInternalMessageDialog(null,"You Win!!", "Congratulation",JOptionPane.PLAIN_MESSAGE);
+            //     map0.repaint();
+            // }
+
+            if (map0.player.boxChar.intersects(map0.goal.goalChar)){
                 System.out.println("Congratulations!!!");
                 ResetPlayer();
                 
@@ -60,14 +68,14 @@ public class MouseAction extends MouseAdapter{
             ResetPlayer();
         }
         // Add Hit the Obstacles Here!! ma friends
-        if (map0.player.boxChar.intersects(map0.o1) || map0.player.boxChar.intersects(map0.o2)){
+        if (map0.player.boxChar.intersects(map0.o1)){
             // Reset State
             ResetPlayer();
         }
         // Add hit the moveing's obstacles
-        if (map0.player.boxChar.intersects(map0.o1Moving.object)){
-            ResetPlayer();
-        }
+        // if (map0.player.boxChar.intersects(map0.o1Moving.object)){
+        //     ResetPlayer();
+        // }
         // Add hit the rotation's obstacles
         
     }

@@ -28,7 +28,8 @@ public class GameFrame extends JFrame {
         // Event-Handler Control Map / Screen
         titleGameScreen.addMouseListener(new NavigationTitleScreen()); // Event TitleScreen
         selectMapScreen.addMouseListener(new NavigationSelectMapScreen()); // EVent SelectMapScreen
-
+        // map0.addMouseListener(new NavBackMap()); // Event Map0
+        
         // Event-Hander Control Box
         cp.addMouseMotionListener(new MouseAction(map0));
 
@@ -63,7 +64,7 @@ public class GameFrame extends JFrame {
     }
 
     // Inner Class Event for Select Map Screen 
-    class NavigationSelectMapScreen extends MouseAdapter{
+    private class NavigationSelectMapScreen extends MouseAdapter{
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
@@ -179,6 +180,22 @@ public class GameFrame extends JFrame {
         }
     }
 
+    // Inner Class Event for Back to Select Map Screen
+    private class NavBackMap extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            if (map0.homeBtn.getBounds().contains(e.getPoint())){
+                System.out.println("==> Home Button's clicked");
+                cp.remove(map0);
+                cp.add(selectMapScreen);
+                cp.revalidate();
+                cp.repaint();
+                System.out.println("Back to Select Map Screen...");
+                System.out.println("-----------------------------");
+            }
+        }
+    }
     public static void main(String[] args) {
         new GameFrame();
     }

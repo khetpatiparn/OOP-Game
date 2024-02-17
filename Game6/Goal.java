@@ -7,6 +7,8 @@ public class Goal{
     protected int sizeGoal;
     private Color colorGoal;
     protected Rectangle goalChar;
+    protected int weightGoal;
+    protected int heightGoal;
 
     // Constructor for Constructor the Goal
     public Goal(int goalX, int goalY, Color colorGoal){
@@ -22,10 +24,22 @@ public class Goal{
         goalChar = new Rectangle(goalX, goalY, size, size);
     }
 
+    // Custom Goal
+    public Goal(int goalX, int goalY, int w, int h, Color colorGoal){
+        this.colorGoal = colorGoal;
+        this.weightGoal = w;
+        this.heightGoal = h;
+        goalChar = new Rectangle(goalX, goalY, w, h);
+    }
+
     // paint the Goal
     public void paintGoal(Graphics g){
         g.setColor(colorGoal);
         g.fillRect(goalChar.x, goalChar.y, sizeGoal, sizeGoal);
+    }
+    public void paintGoalCustomSize(Graphics g){
+        g.setColor(colorGoal);
+        g.fillRect(goalChar.x, goalChar.y, weightGoal, heightGoal);
     }
 
     // to String
