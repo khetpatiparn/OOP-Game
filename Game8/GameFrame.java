@@ -1,6 +1,7 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.Container;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
     // Panels Map/ Screen
@@ -41,7 +42,7 @@ public class GameFrame extends JFrame {
         
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("The Box Game OOP");
+        setTitle("Watch Out,SQUARE!!");
         setLocation(0,0);
         pack();
         setResizable(false);

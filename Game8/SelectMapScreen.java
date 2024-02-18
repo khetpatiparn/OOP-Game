@@ -1,9 +1,21 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class SelectMapScreen extends JPanel{
     // Window Game Size
@@ -158,16 +170,6 @@ public class SelectMapScreen extends JPanel{
         // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
     }
-
-    // Main Test Section
-    // public static void main(String[] args) {
-    //     JFrame frame = new JFrame("Title Game Screen");
-    //     frame.setContentPane(new SelectMapScreen());
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     // frame.setResizable(false);
-    //     frame.pack();
-    //     frame.setVisible(true);
-    // }
 
     private class OpacityMouseAction extends MouseMotionAdapter{
         @Override

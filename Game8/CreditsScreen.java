@@ -1,8 +1,16 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class CreditsScreen extends JPanel {
 
@@ -38,16 +46,16 @@ public class CreditsScreen extends JPanel {
         add(name1);
 
         name2 = new JLabel();
-        name2.setText("66050635  CHATCHAI");
-        name2.setBounds(60, 300, 450, 80);
+        name2.setText("66050635  CHATCHAI PANYANAI");
+        name2.setBounds(60, 300, 490, 80);
         name2.setForeground(offWhite);
         nameFont = usingFontsBold(nameFont, 35f, "font/Oswald/Oswald-Medium.ttf");
         name2.setFont(nameFont);
         add(name2);
 
         name3 = new JLabel();
-        name3.setText("66050752  TANAKORN");
-        name3.setBounds(60, 400, 450, 80);
+        name3.setText("66050752  TANAKORN KAMANA");
+        name3.setBounds(60, 400, 460, 80);
         name3.setForeground(offWhite);
         nameFont = usingFontsBold(nameFont, 35f, "font/Oswald/Oswald-Medium.ttf");
         name3.setFont(nameFont);
@@ -66,7 +74,7 @@ public class CreditsScreen extends JPanel {
         CbackBtn.setFont(CbackBtnFont);
         add(CbackBtn);
 
-        addMouseMotionListener(new MousePositionCheck());
+        addMouseMotionListener((MouseMotionListener) new MousePositionCheck());
         addMouseMotionListener(new OpacityCBackBtn());
 
     }

@@ -1,8 +1,22 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 public class Map1 extends JPanel{
     private GameFrame gameFrame;
@@ -97,16 +111,16 @@ public class Map1 extends JPanel{
         ActionListener updateTask = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                o1Move.moveDown2Up(490, 320, 3);
-                o2Move.moveDown2Up(490, 320, 3);
-                o3Move.moveDown2Up(490, 320, 3);
-                o4Move.moveUp2Down(320, 490, 4);
-                o5Move.moveUp2Down(320, 490, 4);
-                o6Move.moveUp2Down(320, 490, 4);
+                o1Move.moveDown2Up(490, 320, 2);
+                o2Move.moveDown2Up(490, 320, 2);
+                o3Move.moveDown2Up(490, 320, 2);
+                o4Move.moveUp2Down(320, 490, 3);
+                o5Move.moveUp2Down(320, 490, 3);
+                o6Move.moveUp2Down(320, 490, 3);
                 repaint();
             }
         };
-        new Timer(1, updateTask).start();
+        new Timer(10, updateTask).start();
     }
 
     @Override
@@ -204,7 +218,7 @@ public class Map1 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
