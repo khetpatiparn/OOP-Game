@@ -160,14 +160,14 @@ public class SelectMapScreen extends JPanel{
     }
 
     // Main Test Section
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Title Game Screen");
-        frame.setContentPane(new SelectMapScreen());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setResizable(false);
-        frame.pack();
-        frame.setVisible(true);
-    }
+    // public static void main(String[] args) {
+    //     JFrame frame = new JFrame("Title Game Screen");
+    //     frame.setContentPane(new SelectMapScreen());
+    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     // frame.setResizable(false);
+    //     frame.pack();
+    //     frame.setVisible(true);
+    // }
 
     private class OpacityMouseAction extends MouseMotionAdapter{
         @Override

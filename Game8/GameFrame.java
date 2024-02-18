@@ -6,6 +6,7 @@ public class GameFrame extends JFrame {
     // Panels Map/ Screen
     TitleGameScreen titleGameScreen;
     SelectMapScreen selectMapScreen;
+    CreditsScreen creditsScreen;
     Map0 map0;
     Map1 map1;
     EmptyMap emptyMap;
@@ -18,6 +19,7 @@ public class GameFrame extends JFrame {
         // Add the Screen or Maps
         titleGameScreen = new TitleGameScreen();
         selectMapScreen = new SelectMapScreen();
+        creditsScreen = new CreditsScreen();
         map0 = new Map0(this);
         map1 = new Map1(this);
         emptyMap = new EmptyMap();
@@ -32,6 +34,7 @@ public class GameFrame extends JFrame {
         // Event-Handler Control Map / Screen
         titleGameScreen.addMouseListener(new NavigationTitleScreen()); // Event TitleScreen
         selectMapScreen.addMouseListener(new NavigationSelectMapScreen()); // EVent SelectMapScreen
+        creditsScreen.addMouseListener(new NavBackCredits());
         map0.addMouseListener(new NavBackMap()); // Event Map0
         map1.addMouseListener(new NavBackMap()); // Event Map1
         emptyMap.addMouseListener(new NavBackMap()); // Event EmptyMap
@@ -39,7 +42,7 @@ public class GameFrame extends JFrame {
         // setup frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("The Box Game OOP");
-        setLocation(50,50);
+        setLocation(0,0);
         pack();
         setResizable(false);
         setVisible(true);
@@ -59,6 +62,12 @@ public class GameFrame extends JFrame {
                 System.out.println("Select Map Screen's showing");
             }else if(titleGameScreen.Credits.getBounds().contains(e.getPoint()) && titleGameScreen.Credits.isShowing()){
                 System.out.println("==>  Button's clicked");
+                titleGameScreen.add(creditsScreen);
+                titleGameScreen.setComponentZOrder(creditsScreen, 0);
+                cp.revalidate();
+                cp.repaint();
+                System.out.println("-----------------------------");
+                System.out.println("Select Map Screen's showing");
             }else if(titleGameScreen.Exit.getBounds().contains(e.getPoint()) && titleGameScreen.Exit.isShowing()){
                 System.out.println("==> Exit Button's clicked");
                 System.exit(0);
@@ -210,6 +219,21 @@ public class GameFrame extends JFrame {
                 cp.revalidate();
                 cp.repaint();
                 System.out.println("Back to Select Map Screen...");
+                System.out.println("-----------------------------");
+            }
+        }
+    }
+
+    private class NavBackCredits extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            if (creditsScreen.CbackBtn.getBounds().contains(e.getPoint())){
+                System.out.println("Back Button Credits's clicked");
+                titleGameScreen.remove(creditsScreen);
+                revalidate();
+                repaint();
+                System.out.println("Back to Title Map Screen...");
                 System.out.println("-----------------------------");
             }
         }
