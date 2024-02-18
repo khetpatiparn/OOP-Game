@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Map1 extends JPanel{
+public class Map10 extends JPanel{
     private GameFrame gameFrame;
     // Window Game Size
     private final int FRAME_WIDTH = 1366;
@@ -28,7 +28,7 @@ public class Map1 extends JPanel{
     // Construct Wall
     private final int WALL_HEIGHT = 100;
     private final int WALL_WIDTH = 115;
-    protected Rectangle wallTop = new Rectangle(0, 0, FRAME_WIDTH, WALL_HEIGHT);
+    protected Rectangle wallTop = new Rectangle(0, 0-10, FRAME_WIDTH, WALL_HEIGHT);
     protected Rectangle wallBottom = new Rectangle(0, FRAME_HEIGHT - WALL_HEIGHT, FRAME_WIDTH, WALL_HEIGHT);
     protected Rectangle wallLeft = new Rectangle(0, 0, WALL_WIDTH, FRAME_HEIGHT);
     protected Rectangle wallRight = new Rectangle(FRAME_WIDTH - WALL_WIDTH, 0, WALL_WIDTH, FRAME_HEIGHT);
@@ -44,43 +44,55 @@ public class Map1 extends JPanel{
     protected JLabel homeBtn;
 
     // Start positions Setup
-    protected final int START_X = 175;
-    protected final int START_Y = 160;
+    protected final int START_X = 140;
+    protected final int START_Y = 110;
 
     // Goal positions Setup
-    protected final int GOAL_X = 1031;
-    protected final int GOAL_Y = 90;
+    protected final int GOAL_X = 895;
+    protected final int GOAL_Y = 350;
 
     // Construct Box
-    private Color colorBox = new Color(203,108,230,255);
-    protected Box player = new Box(START_X, START_Y, 40 , colorBox);
+    private Color colorBox = new Color(52,104,192,255);
+    protected Box player = new Box(START_X, START_Y, 18 , colorBox);
 
     // Construct Goal
-    protected Goal goal = new Goal(GOAL_X, GOAL_Y,250,50, colorBox.darker().darker().darker().darker());
+    protected Goal goal = new Goal(GOAL_X, GOAL_Y,45,70, colorBox.darker().darker().darker().darker());
 
     // Construct Obstacles Here!! ma friends
-    private Rectangle o1 = new Rectangle(280, 90, 758, 220);
-    private Rectangle o2 = new Rectangle(580, 310, 190, 190);
+    private Rectangle o1h = new Rectangle(195, 144, 987, 71);
+    private Rectangle o2h = new Rectangle(423, 281, 594, 71);
+    private Rectangle o3h = new Rectangle(487, 417, 448, 71);
+    private Rectangle o4h = new Rectangle(341, 549, 759, 71);
+    
+    private Rectangle o1v = new Rectangle(195, 215, 82, 466);
+    private Rectangle o2v = new Rectangle(341, 281, 82, 268);
+    private Rectangle o3v = new Rectangle(935, 352, 82, 136);
+    private Rectangle o4v = new Rectangle(1100, 215, 82, 405);
+    
     // Construct obstacles Moving
-    private ObjectMoving o1Move = new ObjectMoving(280, 330, 70, 160);
-    private ObjectMoving o2Move = new ObjectMoving(380, 330, 70, 160);
-    private ObjectMoving o3Move = new ObjectMoving(480, 330, 70, 160);
-    private ObjectMoving o4Move = new ObjectMoving(790, 500, 70, 160);
-    private ObjectMoving o5Move = new ObjectMoving(880, 500, 70, 160);
-    private ObjectMoving o6Move = new ObjectMoving(970, 500, 70, 160);
-
+    private ObjectMoving o1vMove = new ObjectMoving(85, 600, 110, 70);
+    private ObjectMoving o2vMove = new ObjectMoving(1182, 0, 110, 70);
+    private ObjectMoving o3vMove = new ObjectMoving(1017, 145, 110, 70);
+    private ObjectMoving o4vMove = new ObjectMoving(276, 671, 65, 70);
+    private ObjectMoving o5vMove = new ObjectMoving(421, 550, 67, 70);
+    
+    private ObjectMoving o1hMove = new ObjectMoving(-200, 89, 70, 55);
+    private ObjectMoving o2hMove = new ObjectMoving(196, 213, 70, 70);
+    private ObjectMoving o3hMove = new ObjectMoving(343, 348, 70, 70);
+    private ObjectMoving o4hMove = new ObjectMoving(342, 483, 70, 70);
+    private ObjectMoving o5hMove = new ObjectMoving(196, 619, 70, 70);
     
     // Construct obstables Rotation
 
-    public Map1(GameFrame gameFrame){
+    public Map10(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         setLayout(null);
         setPreferredSize(FRAME_SIZE);
 
         // Label Components
         mapNumber = new JLabel();
-        mapNumber.setText("MAP 1");
-        mapNumber.setBounds(600, 24, 200, 50);
+        mapNumber.setText("MAP 10");
+        mapNumber.setBounds(600, 22, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
@@ -111,12 +123,18 @@ public class Map1 extends JPanel{
         ActionListener updateTask = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                o1Move.moveDown2Up(490, 320, 2);
-                o2Move.moveDown2Up(490, 320, 2);
-                o3Move.moveDown2Up(490, 320, 2);
-                o4Move.moveUp2Down(320, 490, 4);
-                o5Move.moveUp2Down(320, 490, 4);
-                o6Move.moveUp2Down(320, 490, 4);
+                o1vMove.moveUp(660, 0, 3);
+                o2vMove.moveDown(0, 670, 3);
+                o3vMove.moveDown(145, 550, 3);
+                o4vMove.moveUp(670, 145, 3);
+                o5vMove.moveUp(550, 282, 3);
+                
+                o1hMove.moveRight(0, 1250, 3);
+                o2hMove.moveRight(195, 1100, 3);
+                o3hMove.moveRight(344, 938, 3);
+                o4hMove.moveLeft(1100, 344, 3);
+                o5hMove.moveLeft(1250, 198, 3);
+
                 repaint();
             }
         };
@@ -130,14 +148,9 @@ public class Map1 extends JPanel{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
         player.paintBox(g);
         goal.paintGoalCustomSize(g);
+        paintMovingObject(g);
         paintTheWall(g);
         paintObstacles(g);
-        o1Move.paintMovingObject(g);
-        o2Move.paintMovingObject(g);
-        o3Move.paintMovingObject(g);
-        o4Move.paintMovingObject(g);
-        o5Move.paintMovingObject(g);
-        o6Move.paintMovingObject(g);
     }
 
     private void paintTheWall(Graphics g){
@@ -150,8 +163,30 @@ public class Map1 extends JPanel{
     
     private void paintObstacles(Graphics g){
         g.setColor(colorBox);
-        g.fillRect(o1.x, o1.y, o1.width, o1.height);
-        g.fillRect(o2.x, o2.y, o2.width, o2.height);
+        g.fillRect(o1h.x, o1h.y, o1h.width, o1h.height);
+        g.fillRect(o2h.x, o2h.y, o2h.width, o2h.height);
+        g.fillRect(o3h.x, o3h.y, o3h.width, o3h.height);
+        g.fillRect(o4h.x, o4h.y, o4h.width, o4h.height);
+
+        g.fillRect(o1v.x, o1v.y, o1v.width, o1v.height);
+        g.fillRect(o2v.x, o2v.y, o2v.width, o2v.height);
+        g.fillRect(o3v.x, o3v.y, o3v.width, o3v.height);
+        g.fillRect(o4v.x, o4v.y, o4v.width, o4v.height);
+    }
+
+    private void paintMovingObject(Graphics g){
+        g.setColor(colorBox.darker().darker());
+        o1vMove.paintMovingObject(g);
+        o2vMove.paintMovingObject(g);
+        o3vMove.paintMovingObject(g);
+        o4vMove.paintMovingObject(g);
+        o5vMove.paintMovingObject(g);
+        
+        o1hMove.paintMovingObject(g);
+        o2hMove.paintMovingObject(g);
+        o3hMove.paintMovingObject(g);
+        o4hMove.paintMovingObject(g);
+        o5hMove.paintMovingObject(g);
     }
     
     // Using Fonts Method Section
@@ -195,7 +230,7 @@ public class Map1 extends JPanel{
 
     private class MouseAction extends MouseAdapter{
         private boolean isMouseInsideBox = false;
-
+        
         private int cursorX;
         private int cursorY;
 
@@ -218,7 +253,7 @@ public class Map1 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
@@ -228,43 +263,49 @@ public class Map1 extends JPanel{
                 
                 // JOptionPane.showInternalMessageDialog(null,"You Win!!", "Congratulation",JOptionPane.PLAIN_MESSAGE);
                 // repaint();
-                changeMap(gameFrame.map2);
+                changeMap(gameFrame.emptyMap);
             }
         }
         private void changeMap(JPanel newMap){
-            gameFrame.cp.remove(gameFrame.map1);
+            gameFrame.cp.remove(gameFrame.map10);
             gameFrame.cp.add(newMap);
             gameFrame.cp.revalidate();
             gameFrame.cp.repaint();
         }
 
-    private void Collistion(){
-        // Hit the Wall
-        if (player.boxChar.intersects(wallTop) || player.boxChar.intersects(wallLeft) 
-            || player.boxChar.intersects(wallRight) || player.boxChar.intersects(wallBottom)){
-            // Reset State
-            ResetPlayer();
+        private void Collistion(){
+            // Hit the Wall
+            if (player.boxChar.intersects(wallTop) || player.boxChar.intersects(wallLeft) 
+                || player.boxChar.intersects(wallRight) || player.boxChar.intersects(wallBottom)){
+                // Reset State
+                ResetPlayer();
+            }
+            // Add Hit the Obstacles Here!! ma friends
+            if (player.boxChar.intersects(o1h) || player.boxChar.intersects(o2h)
+                || player.boxChar.intersects(o3h) || player.boxChar.intersects(o4h)
+                || player.boxChar.intersects(o1v) || player.boxChar.intersects(o2v)
+                || player.boxChar.intersects(o3v) || player.boxChar.intersects(o4v)){
+                // Reset State
+                ResetPlayer();
+            }
+            // Add hit the moveing's obstacles
+            if (player.boxChar.intersects(o1hMove.object) || player.boxChar.intersects(o2hMove.object)
+                || player.boxChar.intersects(o3hMove.object) || player.boxChar.intersects(o4hMove.object)
+                || player.boxChar.intersects(o5hMove.object)
+                || player.boxChar.intersects(o1vMove.object) || player.boxChar.intersects(o2vMove.object)
+                || player.boxChar.intersects(o3vMove.object) || player.boxChar.intersects(o4vMove.object)
+                || player.boxChar.intersects(o5vMove.object)){
+                // Reset State
+                ResetPlayer();
+            }
+            // Add hit the rotation's obstacles
+            
         }
-        // Add Hit the Obstacles Here!! ma friends
-        if (player.boxChar.intersects(o1) || player.boxChar.intersects(o2)){
-            // Reset State
-            ResetPlayer();
-        }
-        // Add hit the moveing's obstacles
-        if (player.boxChar.intersects(o1Move.object) || player.boxChar.intersects(o2Move.object)
-            || player.boxChar.intersects(o3Move.object) || player.boxChar.intersects(o4Move.object)
-            || player.boxChar.intersects(o5Move.object) || player.boxChar.intersects(o6Move.object)){
-            // Reset State
-            ResetPlayer();
-        }
-        // Add hit the rotation's obstacles
-        
-    }
     
-    private void ResetPlayer(){
-        isMouseInsideBox = false;
-        player.boxChar.x = START_X;
-        player.boxChar.y = START_Y;
-    }
+        private void ResetPlayer(){
+            isMouseInsideBox = false;
+            player.boxChar.x = START_X;
+            player.boxChar.y = START_Y;
+        }
     }
 }

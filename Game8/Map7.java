@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Map1 extends JPanel{
+public class Map7 extends JPanel{
     private GameFrame gameFrame;
     // Window Game Size
     private final int FRAME_WIDTH = 1366;
@@ -26,8 +26,8 @@ public class Map1 extends JPanel{
     private final Dimension FRAME_SIZE = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
     // Construct Wall
-    private final int WALL_HEIGHT = 100;
-    private final int WALL_WIDTH = 115;
+    private final int WALL_HEIGHT = 80;
+    private final int WALL_WIDTH = 50;
     protected Rectangle wallTop = new Rectangle(0, 0, FRAME_WIDTH, WALL_HEIGHT);
     protected Rectangle wallBottom = new Rectangle(0, FRAME_HEIGHT - WALL_HEIGHT, FRAME_WIDTH, WALL_HEIGHT);
     protected Rectangle wallLeft = new Rectangle(0, 0, WALL_WIDTH, FRAME_HEIGHT);
@@ -44,56 +44,58 @@ public class Map1 extends JPanel{
     protected JLabel homeBtn;
 
     // Start positions Setup
-    protected final int START_X = 175;
-    protected final int START_Y = 160;
+    protected final int START_X = 1200;
+    protected final int START_Y = 500;
 
     // Goal positions Setup
-    protected final int GOAL_X = 1031;
-    protected final int GOAL_Y = 90;
+    protected final int GOAL_X = 1290;
+    protected final int GOAL_Y = 20;
 
     // Construct Box
-    private Color colorBox = new Color(203,108,230,255);
-    protected Box player = new Box(START_X, START_Y, 40 , colorBox);
+    private Color colorBox = new Color(0,151,178,255);
+    protected Box player = new Box(START_X, START_Y, 50 , colorBox);
 
     // Construct Goal
-    protected Goal goal = new Goal(GOAL_X, GOAL_Y,250,50, colorBox.darker().darker().darker().darker());
+    protected Goal goal = new Goal(GOAL_X, GOAL_Y,30,380, colorBox.darker().darker().darker().darker());
 
     // Construct Obstacles Here!! ma friends
-    private Rectangle o1 = new Rectangle(280, 90, 758, 220);
-    private Rectangle o2 = new Rectangle(580, 310, 190, 190);
+    private Rectangle o1 = new Rectangle(500, 400, 1000, 60);
+    private Rectangle o2 = new Rectangle(500, 200, 300, 210);
+
+    
     // Construct obstacles Moving
-    private ObjectMoving o1Move = new ObjectMoving(280, 330, 70, 160);
-    private ObjectMoving o2Move = new ObjectMoving(380, 330, 70, 160);
-    private ObjectMoving o3Move = new ObjectMoving(480, 330, 70, 160);
-    private ObjectMoving o4Move = new ObjectMoving(790, 500, 70, 160);
-    private ObjectMoving o5Move = new ObjectMoving(880, 500, 70, 160);
-    private ObjectMoving o6Move = new ObjectMoving(970, 500, 70, 160);
+    private ObjectMoving o1Move = new ObjectMoving(650, 480, 60, 120);
+    private ObjectMoving o2Move = new ObjectMoving(800, 540, 60, 120);
+    private ObjectMoving o3Move = new ObjectMoving(950, 480, 60, 120);
+    private ObjectMoving o4Move = new ObjectMoving(80, 200, 250, 50);
+    private ObjectMoving o5Move = new ObjectMoving(200, 310, 250, 50);
+    private ObjectMoving o6Move = new ObjectMoving(80, 420, 250, 50);
 
     
     // Construct obstables Rotation
 
-    public Map1(GameFrame gameFrame){
+    public Map7(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         setLayout(null);
         setPreferredSize(FRAME_SIZE);
 
         // Label Components
         mapNumber = new JLabel();
-        mapNumber.setText("MAP 1");
-        mapNumber.setBounds(600, 24, 200, 50);
+        mapNumber.setText("MAP 7");
+        mapNumber.setBounds(600, 15, 200, 50);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
         mapNumber.setHorizontalAlignment(SwingConstants.CENTER);
         mapNumber.setVerticalAlignment(SwingConstants.CENTER);
-        mapNumberFont = usingFontsBold(mapNumberFont, 55f, "font/Oswald/Oswald-Medium.ttf");
+        mapNumberFont = usingFontsBold(mapNumberFont, 50f, "font/Oswald/Oswald-Medium.ttf");
         mapNumber.setFont(mapNumberFont);
         add(mapNumber);
 
         // Button home (but use Label)
         homeBtn = new JLabel();
         homeBtn.setText("HOME");
-        homeBtn.setBounds(1180, 675, 150, 80);
+        homeBtn.setBounds(1180, 685, 150, 80);
         homeBtn.setOpaque(false);
         homeBtn.setBackground(Color.BLACK);
         homeBtn.setForeground(offWhite);
@@ -111,12 +113,12 @@ public class Map1 extends JPanel{
         ActionListener updateTask = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                o1Move.moveDown2Up(490, 320, 2);
-                o2Move.moveDown2Up(490, 320, 2);
-                o3Move.moveDown2Up(490, 320, 2);
-                o4Move.moveUp2Down(320, 490, 4);
-                o5Move.moveUp2Down(320, 490, 4);
-                o6Move.moveUp2Down(320, 490, 4);
+                o1Move.moveDown2Up(580, 460, 3);
+                o2Move.moveUp2Down(460, 580, 3);
+                o3Move.moveDown2Up(580, 460, 3);
+                o4Move.moveRight2Left(248, 40, 4);
+                o5Move.moveLeft2Right(40, 248, 4);
+                o6Move.moveRight2Left(248, 40, 4);
                 repaint();
             }
         };
@@ -228,11 +230,11 @@ public class Map1 extends JPanel{
                 
                 // JOptionPane.showInternalMessageDialog(null,"You Win!!", "Congratulation",JOptionPane.PLAIN_MESSAGE);
                 // repaint();
-                changeMap(gameFrame.map2);
+                changeMap(gameFrame.map8);
             }
         }
         private void changeMap(JPanel newMap){
-            gameFrame.cp.remove(gameFrame.map1);
+            gameFrame.cp.remove(gameFrame.map7);
             gameFrame.cp.add(newMap);
             gameFrame.cp.revalidate();
             gameFrame.cp.repaint();
@@ -246,14 +248,13 @@ public class Map1 extends JPanel{
             ResetPlayer();
         }
         // Add Hit the Obstacles Here!! ma friends
-        if (player.boxChar.intersects(o1) || player.boxChar.intersects(o2)){
+        if (player.boxChar.intersects(o1)||player.boxChar.intersects(o2)){
             // Reset State
             ResetPlayer();
         }
         // Add hit the moveing's obstacles
-        if (player.boxChar.intersects(o1Move.object) || player.boxChar.intersects(o2Move.object)
-            || player.boxChar.intersects(o3Move.object) || player.boxChar.intersects(o4Move.object)
-            || player.boxChar.intersects(o5Move.object) || player.boxChar.intersects(o6Move.object)){
+        if (player.boxChar.intersects(o1Move.object)||player.boxChar.intersects(o2Move.object)||player.boxChar.intersects(o3Move.object)||
+            player.boxChar.intersects(o4Move.object)||player.boxChar.intersects(o5Move.object)||player.boxChar.intersects(o6Move.object)){
             // Reset State
             ResetPlayer();
         }

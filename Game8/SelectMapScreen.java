@@ -31,7 +31,7 @@ public class SelectMapScreen extends JPanel{
     private Color black = new Color(25, 28, 32);
     private Color []mColor = {new Color(255, 104, 104,255), // 0
                     new Color(203,108,230,255), // 1
-                    new Color(255,222,89,255), // 2
+                    new Color(255,201,60,255), // 2
                     new Color(56,182,255,255), // 3
                     new Color(126,217,87,255), // 4
                     new Color(255,189,89,255), // 5
@@ -39,7 +39,7 @@ public class SelectMapScreen extends JPanel{
                     new Color(0,151,178,255), // 7
                     new Color(0,191,99,255), // 8
                     new Color(255,145,77,255), // 9
-                    new Color(0,74,173,255), // 10
+                    new Color(52,104,192,255), // 10
                     new Color(166,166,166,255), //11
     };
     

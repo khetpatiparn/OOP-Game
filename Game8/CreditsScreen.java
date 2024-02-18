@@ -109,7 +109,7 @@ public class CreditsScreen extends JPanel {
         @Override
         public void mouseMoved(MouseEvent e) {
         // Check mouse's position
-        System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+        // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
     }
 

@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Map1 extends JPanel{
+public class Map8 extends JPanel{
     private GameFrame gameFrame;
     // Window Game Size
     private final int FRAME_WIDTH = 1366;
@@ -44,49 +44,50 @@ public class Map1 extends JPanel{
     protected JLabel homeBtn;
 
     // Start positions Setup
-    protected final int START_X = 175;
-    protected final int START_Y = 160;
+    protected final int START_X = 320;
+    protected final int START_Y = 165;
 
     // Goal positions Setup
-    protected final int GOAL_X = 1031;
+    protected final int GOAL_X = 1000;
     protected final int GOAL_Y = 90;
 
     // Construct Box
-    private Color colorBox = new Color(203,108,230,255);
+    private Color colorBox = new Color(0,191,99,255);
     protected Box player = new Box(START_X, START_Y, 40 , colorBox);
 
     // Construct Goal
-    protected Goal goal = new Goal(GOAL_X, GOAL_Y,250,50, colorBox.darker().darker().darker().darker());
+    protected Goal goal = new Goal(GOAL_X, GOAL_Y,290,50, colorBox.darker().darker().darker().darker());
 
     // Construct Obstacles Here!! ma friends
-    private Rectangle o1 = new Rectangle(280, 90, 758, 220);
-    private Rectangle o2 = new Rectangle(580, 310, 190, 190);
-    // Construct obstacles Moving
-    private ObjectMoving o1Move = new ObjectMoving(280, 330, 70, 160);
-    private ObjectMoving o2Move = new ObjectMoving(380, 330, 70, 160);
-    private ObjectMoving o3Move = new ObjectMoving(480, 330, 70, 160);
-    private ObjectMoving o4Move = new ObjectMoving(790, 500, 70, 160);
-    private ObjectMoving o5Move = new ObjectMoving(880, 500, 70, 160);
-    private ObjectMoving o6Move = new ObjectMoving(970, 500, 70, 160);
+    private Rectangle o1 = new Rectangle(600,90,400,470);
+    private Rectangle o2 = new Rectangle(420,90,240,130);
+    private Rectangle o3 = new Rectangle(40,90,140,130);
 
+    // Construct obstacles Moving
+    private ObjectMoving M1 = new ObjectMoving(150, 215, 50, 170);
+    private ObjectMoving M2 = new ObjectMoving(350, 215, 50, 170);
+    private ObjectMoving M3 = new ObjectMoving(150, 395, 50, 160);
+    private ObjectMoving M4 = new ObjectMoving(350, 395, 50, 160);
+    private ObjectMoving M5 = new ObjectMoving(100, 10, 510, 50);
+    private ObjectMoving M6 = new ObjectMoving(950, 450, 450, 50);
     
     // Construct obstables Rotation
 
-    public Map1(GameFrame gameFrame){
+    public Map8(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         setLayout(null);
         setPreferredSize(FRAME_SIZE);
 
         // Label Components
         mapNumber = new JLabel();
-        mapNumber.setText("MAP 1");
-        mapNumber.setBounds(600, 24, 200, 50);
+        mapNumber.setText("MAP 8");
+        mapNumber.setBounds(650, 365, 280, 100);
         mapNumber.setOpaque(false);
         mapNumber.setBackground(Color.BLACK);
         mapNumber.setForeground(offWhite);
         mapNumber.setHorizontalAlignment(SwingConstants.CENTER);
         mapNumber.setVerticalAlignment(SwingConstants.CENTER);
-        mapNumberFont = usingFontsBold(mapNumberFont, 55f, "font/Oswald/Oswald-Medium.ttf");
+        mapNumberFont = usingFontsBold(mapNumberFont, 100f, "font/Oswald/Oswald-Medium.ttf");
         mapNumber.setFont(mapNumberFont);
         add(mapNumber);
 
@@ -111,12 +112,13 @@ public class Map1 extends JPanel{
         ActionListener updateTask = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                o1Move.moveDown2Up(490, 320, 2);
-                o2Move.moveDown2Up(490, 320, 2);
-                o3Move.moveDown2Up(490, 320, 2);
-                o4Move.moveUp2Down(320, 490, 4);
-                o5Move.moveUp2Down(320, 490, 4);
-                o6Move.moveUp2Down(320, 490, 4);
+                // 
+                M1.moveLeft2Right(150,350,2);
+                M2.moveLeft2Right(350,550,2);
+                M3.moveLeft2Right(150,350,3);
+                M4.moveLeft2Right(350,550,3);
+                M5.moveUp2Down(10, 250, 1);
+                M6.moveUp2Down(450, 700, 1);
                 repaint();
             }
         };
@@ -131,15 +133,15 @@ public class Map1 extends JPanel{
         player.paintBox(g);
         goal.paintGoalCustomSize(g);
         paintTheWall(g);
+        M1.paintMovingObject(g2d);
+        M2.paintMovingObject(g2d);
+        M3.paintMovingObject(g2d);
+        M4.paintMovingObject(g2d);
+        M5.paintMovingObject(g2d);
+        M6.paintMovingObject(g2d);
         paintObstacles(g);
-        o1Move.paintMovingObject(g);
-        o2Move.paintMovingObject(g);
-        o3Move.paintMovingObject(g);
-        o4Move.paintMovingObject(g);
-        o5Move.paintMovingObject(g);
-        o6Move.paintMovingObject(g);
     }
-
+    
     private void paintTheWall(Graphics g){
         g.setColor(colorBox);
         g.fillRect(wallTop.x, wallTop.y, wallTop.width, wallTop.height);
@@ -152,6 +154,7 @@ public class Map1 extends JPanel{
         g.setColor(colorBox);
         g.fillRect(o1.x, o1.y, o1.width, o1.height);
         g.fillRect(o2.x, o2.y, o2.width, o2.height);
+        g.fillRect(o3.x, o3.y, o3.width, o3.height);
     }
     
     // Using Fonts Method Section
@@ -218,7 +221,7 @@ public class Map1 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
@@ -228,11 +231,11 @@ public class Map1 extends JPanel{
                 
                 // JOptionPane.showInternalMessageDialog(null,"You Win!!", "Congratulation",JOptionPane.PLAIN_MESSAGE);
                 // repaint();
-                changeMap(gameFrame.map2);
+                changeMap(gameFrame.map10);
             }
         }
         private void changeMap(JPanel newMap){
-            gameFrame.cp.remove(gameFrame.map1);
+            gameFrame.cp.remove(gameFrame.map8);
             gameFrame.cp.add(newMap);
             gameFrame.cp.revalidate();
             gameFrame.cp.repaint();
@@ -244,19 +247,22 @@ public class Map1 extends JPanel{
             || player.boxChar.intersects(wallRight) || player.boxChar.intersects(wallBottom)){
             // Reset State
             ResetPlayer();
-        }
-        // Add Hit the Obstacles Here!! ma friends
-        if (player.boxChar.intersects(o1) || player.boxChar.intersects(o2)){
+        }if (player.boxChar.intersects(o1) || player.boxChar.intersects(o2) || player.boxChar.intersects(o3)){
             // Reset State
             ResetPlayer();
         }
         // Add hit the moveing's obstacles
-        if (player.boxChar.intersects(o1Move.object) || player.boxChar.intersects(o2Move.object)
-            || player.boxChar.intersects(o3Move.object) || player.boxChar.intersects(o4Move.object)
-            || player.boxChar.intersects(o5Move.object) || player.boxChar.intersects(o6Move.object)){
+        if (player.boxChar.intersects(M1.object) || player.boxChar.intersects(M2.object)
+            || player.boxChar.intersects(M3.object) || player.boxChar.intersects(M4.object)
+            || player.boxChar.intersects(M5.object) || player.boxChar.intersects(M6.object)){
             // Reset State
             ResetPlayer();
         }
+        // Add hit the rotation's obstacles
+        // Add Hit the Obstacles Here!! ma friends
+        
+        // Add hit the moveing's obstacles
+
         // Add hit the rotation's obstacles
         
     }

@@ -193,7 +193,7 @@ public class Map0 extends JPanel{
         public void mouseMoved(MouseEvent e) {
             super.mouseMoved(e);
             if (homeBtn.getBounds().contains(e.getPoint())){
-                System.out.println("Is in Home Button in Map 0");
+                // System.out.println("Is in Home Button in Map 0");
                 homeBtn.setForeground(offWhite.darker().darker());
             }else{
                 homeBtn.setForeground(offWhite);
