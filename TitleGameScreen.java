@@ -9,6 +9,8 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -16,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class TitleGameScreen extends JPanel{
     // Window Game Size
@@ -53,6 +56,14 @@ public class TitleGameScreen extends JPanel{
     // Footer backgound
     private Rectangle floor = new Rectangle(0, 600, FRAME_WIDTH + 50, 200);
     private Rectangle Box = new Rectangle(1000, 555, 70, 70);
+
+    // Box Background 
+    private ObjectMoving bgBox1 = new ObjectMoving(800,478,200,200);
+    private ObjectMoving bgBox2 = new ObjectMoving(148,35,360,360);
+    private ObjectMoving bgBox3 = new ObjectMoving(760,-100,310,310);
+    private ObjectMoving bgBox4 = new ObjectMoving(1390,309,258,230);
+    private ObjectMoving bgBox5 = new ObjectMoving(-100,389,250,250);
+    private ObjectMoving bgBox6 = new ObjectMoving(1193,690,280,250);
     
     // Constructor to setup Component and Event handler
     public TitleGameScreen(){
@@ -118,6 +129,20 @@ public class TitleGameScreen extends JPanel{
         addMouseListener(new ArrowAction()); // click arrow to change label
         addMouseMotionListener(new MousePositionCheck());
         addMouseMotionListener(new HoverButton());
+
+        ActionListener updateTask = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bgBox1.moveLeft(1400, -550, 2);
+                bgBox2.moveLeft(1600, -800, 1);
+                bgBox3.moveLeft(1550, -1000, 3);
+                bgBox4.moveLeft(1750, -1000, 1);
+                bgBox5.moveLeft(2000, -1000, 2);
+                bgBox6.moveLeft(1400, -300, 2);
+                repaint();
+            }
+        };
+        new Timer(10, updateTask).start();
     }
     // Main PaintComponents Method
     @Override
@@ -125,6 +150,7 @@ public class TitleGameScreen extends JPanel{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly rect
+        paintBackgroundBox(g);
         paintArrowBtn(g);
         paintFloor(g2d);
         paintBox(g2d);
@@ -176,6 +202,27 @@ public class TitleGameScreen extends JPanel{
         tfBox.rotate(Math.toRadians(177), Box.getCenterX(), Box.getCenterY());
         Shape tfShapeBox = tfBox.createTransformedShape(Box);
         g2d.fill(tfShapeBox);
+    }
+
+    public void paintBackgroundBox(Graphics g){
+        g.setColor(new Color(255,175,126,255)); // orange
+        g.fillRect(bgBox4.object.x, bgBox4.object.y, bgBox4.object.width, bgBox4.object.height);
+        
+        g.setColor(new Color(255, 104, 104,255).brighter()); // red
+        g.fillRect(bgBox1.object.x, bgBox1.object.y, bgBox1.object.width, bgBox1.object.height);
+        
+        g.setColor(new Color(177,255,143,255)); // green
+        g.fillRect(bgBox2.object.x, bgBox2.object.y, bgBox2.object.width, bgBox2.object.height);
+        
+        g.setColor(new Color(222,158,228,255)); // purple
+        g.fillRect(bgBox5.object.x, bgBox5.object.y, bgBox5.object.width, bgBox5.object.height);
+        
+        g.setColor(new Color(190,245,255,255)); // blue
+        g.fillRect(bgBox3.object.x, bgBox3.object.y, bgBox3.object.width, bgBox3.object.height);
+
+        g.setColor(new Color(50,60,50,255)); // black
+        g.fillRect(bgBox6.object.x, bgBox6.object.y, bgBox6.object.width, bgBox6.object.height);
+
     }
 
     // Inner Class for Event Handler Section

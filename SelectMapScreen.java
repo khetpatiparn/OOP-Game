@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 public class SelectMapScreen extends JPanel{
     // Window Game Size
@@ -50,6 +53,14 @@ public class SelectMapScreen extends JPanel{
     protected JLabel[] map = new JLabel[12];
     private int hGap = 50;
     private int sizeBtn = 150; 
+
+    // Box Background 
+    private ObjectMoving bgBox1 = new ObjectMoving(800,478,200,200);
+    private ObjectMoving bgBox2 = new ObjectMoving(148,35,360,360);
+    private ObjectMoving bgBox3 = new ObjectMoving(760,-100,310,310);
+    private ObjectMoving bgBox4 = new ObjectMoving(1390,309,258,230);
+    private ObjectMoving bgBox5 = new ObjectMoving(-100,389,250,250);
+    private ObjectMoving bgBox6 = new ObjectMoving(1193,690,280,250);
     
     // Constructor to setup Component and Event handler
     public SelectMapScreen(){
@@ -114,6 +125,20 @@ public class SelectMapScreen extends JPanel{
         // Event-Hander
         addMouseMotionListener(new Mouse());
         addMouseMotionListener(new OpacityMouseAction());
+
+        ActionListener updateTask = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bgBox1.moveLeft(1400, -550, 2);
+                bgBox2.moveLeft(1600, -800, 1);
+                bgBox3.moveLeft(1550, -1000, 3);
+                bgBox4.moveLeft(1750, -1000, 1);
+                bgBox5.moveLeft(2000, -1000, 2);
+                bgBox6.moveLeft(1400, -300, 2);
+                repaint();
+            }
+        };
+        new Timer(10, updateTask).start();
     }
     // Main PaintComponents Method
     @Override
@@ -122,6 +147,7 @@ public class SelectMapScreen extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
         g2d.setFont(BackBtnFont);
+        paintBackgroundBox(g2d);
         
         // This is tutorial text
         AffineTransform originalTransform = g2d.getTransform(); 
@@ -134,6 +160,27 @@ public class SelectMapScreen extends JPanel{
         g2d.drawString("Map 0's the Tutorial", -30, 220); 
         g2d.setTransform(originalTransform);
         
+    }
+
+    public void paintBackgroundBox(Graphics g){
+        g.setColor(new Color(255,175,126,255)); // orange
+        g.fillRect(bgBox4.object.x, bgBox4.object.y, bgBox4.object.width, bgBox4.object.height);
+        
+        g.setColor(new Color(255, 104, 104,255).brighter()); // red
+        g.fillRect(bgBox1.object.x, bgBox1.object.y, bgBox1.object.width, bgBox1.object.height);
+        
+        g.setColor(new Color(177,255,143,255)); // green
+        g.fillRect(bgBox2.object.x, bgBox2.object.y, bgBox2.object.width, bgBox2.object.height);
+        
+        g.setColor(new Color(222,158,228,255)); // purple
+        g.fillRect(bgBox5.object.x, bgBox5.object.y, bgBox5.object.width, bgBox5.object.height);
+        
+        g.setColor(new Color(190,245,255,255)); // blue
+        g.fillRect(bgBox3.object.x, bgBox3.object.y, bgBox3.object.width, bgBox3.object.height);
+
+        g.setColor(new Color(50,60,50,255)); // black
+        g.fillRect(bgBox6.object.x, bgBox6.object.y, bgBox6.object.width, bgBox6.object.height);
+
     }
     
     // Using Fonts Method Section
