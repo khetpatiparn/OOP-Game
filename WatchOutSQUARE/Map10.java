@@ -60,14 +60,14 @@ public class Map10 extends JPanel{
 
     // Construct Obstacles Here!! ma friends
     private Rectangle o1h = new Rectangle(195, 144, 987, 71);
-    private Rectangle o2h = new Rectangle(423, 281, 594, 71);
-    private Rectangle o3h = new Rectangle(487, 417, 448, 71);
-    private Rectangle o4h = new Rectangle(341, 549, 759, 71);
+    private Rectangle o2h = new Rectangle(422, 281, 595, 71);
+    private Rectangle o3h = new Rectangle(487, 417, 449, 71);
+    private Rectangle o4h = new Rectangle(341, 549, 760, 71);
     
-    private Rectangle o1v = new Rectangle(195, 215, 82, 466);
-    private Rectangle o2v = new Rectangle(341, 281, 82, 268);
-    private Rectangle o3v = new Rectangle(935, 352, 82, 136);
-    private Rectangle o4v = new Rectangle(1100, 215, 82, 405);
+    private Rectangle o1v = new Rectangle(195, 214, 82, 466);
+    private Rectangle o2v = new Rectangle(341, 281, 82, 269);
+    private Rectangle o3v = new Rectangle(935, 351, 82, 137);
+    private Rectangle o4v = new Rectangle(1100, 214, 82, 406);
     
     // Construct obstacles Moving
     private ObjectMoving o1vMove = new ObjectMoving(85, 600, 110, 70);
