@@ -1,2 +1,0 @@
-resource:
-https://stackoverflow.com/questions/1984071/how-to-hide-cursor-in-a-swing-application
