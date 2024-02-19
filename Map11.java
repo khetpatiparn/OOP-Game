@@ -251,7 +251,7 @@ public class Map11 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            //System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
