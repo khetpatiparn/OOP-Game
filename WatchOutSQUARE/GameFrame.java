@@ -43,7 +43,7 @@ public class GameFrame extends JFrame {
         map10 = new Map10(this);
         map11 = new Map11(this);
 
-        // cp.add(titleGameScreen);
+        cp.add(titleGameScreen);
         // cp.add(selectMapScreen);
         // cp.add(map0);
         // cp.add(map1);
@@ -56,7 +56,7 @@ public class GameFrame extends JFrame {
         // cp.add(map8);
         // cp.add(map9);
         // cp.add(map10);
-        cp.add(map11);
+        // cp.add(map11);
         // cp.add(emptyMap);
 
         // Event-Handler Control Map / Screen
