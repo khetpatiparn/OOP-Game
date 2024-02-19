@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JLabel;
@@ -39,7 +38,7 @@ public class Map0 extends JPanel{
     
     // Home Button to Select Map Screen
     private JLabel mapNumber;
-    protected JLabel homeBtn;
+    protected JLabel homeBtn, text1, text2, text3;
 
     // Start positions Setup
     protected final int START_X = 160;
@@ -93,6 +92,42 @@ public class Map0 extends JPanel{
         mapNumberFont = usingFontsBold(mapNumberFont, 60f, "font/Oswald/Oswald-Medium.ttf");
         homeBtn.setFont(mapNumberFont);
         add(homeBtn);
+
+        text1 = new JLabel();
+        text1.setText("move your mouse over SQUARE!!");
+        text1.setBounds(250, 160, 550, 80);
+        text1.setOpaque(false);
+        text1.setBackground(Color.BLACK);
+        text1.setForeground(offWhite.darker());
+        text1.setHorizontalAlignment(SwingConstants.CENTER);
+        text1.setVerticalAlignment(SwingConstants.CENTER);
+        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
+        text1.setFont(TextFont);
+        add(text1);
+
+        text2 = new JLabel();
+        text2.setText("Don't hit ANYTHING");
+        text2.setBounds(920, 328, 300, 80);
+        text2.setOpaque(false);
+        text2.setBackground(Color.BLACK);
+        text2.setForeground(offWhite.darker());
+        text2.setHorizontalAlignment(SwingConstants.CENTER);
+        text2.setVerticalAlignment(SwingConstants.CENTER);
+        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
+        text2.setFont(TextFont);
+        add(text2);
+
+        text3 = new JLabel();
+        text3.setText("Get Goal!!");
+        text3.setBounds(180,530, 200, 80);
+        text3.setOpaque(false);
+        text3.setBackground(Color.BLACK);
+        text3.setForeground(offWhite.darker());
+        text3.setHorizontalAlignment(SwingConstants.CENTER);
+        text3.setVerticalAlignment(SwingConstants.CENTER);
+        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
+        text3.setFont(TextFont);
+        add(text3);
         
         // Add Event Home Button
         MouseAction mouseAction = new MouseAction();
@@ -105,9 +140,9 @@ public class Map0 extends JPanel{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); // for smoothly 
-        paintText1(g2d);
-        paintText2(g2d);
-        paintText3(g2d);
+        // paintText1(g2d);
+        // paintText2(g2d);
+        // paintText3(g2d);
         player.paintBox(g);
         goal.paintGoalCustomSize(g);
         paintTheWall(g);
@@ -125,41 +160,6 @@ public class Map0 extends JPanel{
     private void paintObstacles(Graphics g){
         g.setColor(colorBox);
         g.fillRect(o1.x, o1.y, o1.width, o1.height);
-    }
-    private void paintText1(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("move your mouse over SQUARE!!", 250, 210); 
-        g2d.setTransform(originalTransform);
-    }
-
-    private void paintText2(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("Don't hit ANYTHING", 930, 370); 
-        g2d.setTransform(originalTransform);
-    }
-
-    private void paintText3(Graphics2D g2d){
-        // This is tutorial text1
-        AffineTransform originalTransform = g2d.getTransform(); 
-        AffineTransform tfText = new AffineTransform();
-        g2d.setTransform(tfText);
-        TextFont = usingFonts(TextFont, 40f, "font/Oswald/Oswald-Medium.ttf");
-        g2d.setFont(TextFont);
-        g2d.setColor(offWhite.darker());
-        g2d.drawString("Get Goal", 190, 580); 
-        g2d.setTransform(originalTransform);
     }
     
     // Using Fonts Method Section
@@ -226,7 +226,7 @@ public class Map0 extends JPanel{
                 isMouseInsideBox = true;
             }
             //Check mouse's position
-            // System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
+            System.out.println("mouseX:" + e.getX() + ", mouseY:" + e.getY());
         }
         private void winGoal(){
             // Box Get Goal
