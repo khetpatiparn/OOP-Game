@@ -2,7 +2,7 @@
 
 ![TitleScreen](https://github.com/khetpatiparn/Watch-Out-SQUARE-Game/assets/86398502/662436e8-692b-45a5-9e66-a8a46cdd7c03)
 
-## About This Project 
+## About This Project  [ Duration: 1 - 20 February 2024 ]
 This game was created as a part of an OOP course project. The goal of the project was to learn how to apply OOP principles to game development.
 * **Course:** Object-Oriented Programming (OOP)
 * **Faculty of Science:** Department of Computer Science KMITL
